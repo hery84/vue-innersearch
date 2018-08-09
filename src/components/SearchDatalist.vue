@@ -3,7 +3,7 @@
         <div class='is-search-datalist-items'>
             <ul>
                 <li v-for='(selection, index) in selections' :key='index' @click='remove(index)'>
-                    <slot name='items' v-bind:item='selection'>
+                    <slot name='elements' v-bind:item='selection'>
                         {{ selection }}
                     </slot>
                 </li>
@@ -57,7 +57,7 @@
                 type : Number,
                 default : 300
             },
-            
+
             // fields on which the search is done
             'field' : {
                 type : [String, Array]
@@ -150,7 +150,7 @@
             computedSelections : function(selections) {
  				// Reset all deep instructions of local request
                 this.removeInstructions();
-                
+
                 // Case where the selection array is not empty : we add instructions
                 if (selections.length > 0) {
                     // Local request data initialization for each field selection
@@ -315,7 +315,7 @@
                     this.hideSuggestions();
                 }
             },
-            
+
             // Scroll function
             selectAndScroll : function(index) {
                 let _refSugg = this.$refs.suggestions[index];
@@ -366,7 +366,7 @@
             // Behavior when realtime is disabled
             if (!this.realtime)
                 _disableWatcherFetch(); // Disable the watcher that disable fetch event
-            
+
             // Debounce for suggestion list update
             let _debounce = debounce(this.updateItems, this.timeout); // Debounce method with the timeout value on the current SeachOn function
             this.addDebounce(Component.SEARCH_DATALIST, _debounce); // Add debounce event to listed debounce into the Store

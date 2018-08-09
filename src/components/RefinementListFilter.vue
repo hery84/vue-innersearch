@@ -3,14 +3,21 @@
         <slot name="title" :title="title">
             <h3 class="is-refinement-menu-title">{{title}}</h3>
         </slot>
-        <slot name="uncheck_all" :uncheckAll="uncheckAll"></slot> 
-        <input v-if="search" type="text" placeholder="search..." v-model="test_">
-        <slot name="label" :items="items"
+        <slot name="uncheck_all" :uncheckAll="uncheckAll"></slot>
+        <v-text-field v-if="search"
+            v-model="test_"
+            solo
+            label="Buscar" append-icon="search"
+            clearable
+          ></v-text-field>
+        <!--input v-if="search" type="text" placeholder="search..." v-model="test_"-->
+
+        <slot name="label" :elements="elements"
         :displayCount="displayCount"
         :checkedItems="checkedItems"
         :clickOnItem="clickOnItem"
         :clickOnLabel="clickOnLabel" :ref="input">
-            <div  v-for="(item, index) in items" :key="index" class="is-item is-refinement-list" >
+            <div  v-for="(item, index) in elements" :key="index" class="is-item is-refinement-list" >
                     <input
                     type="checkbox"
                     :name="item.key"
@@ -23,7 +30,7 @@
         </slot>
         <slot name="viewmore">
             <a href="#" :style="{ display : viewMoreDisplay}"  v-on:click='updateAggsSize()'>view more</a>
-        </slot>        
+        </slot>
         <slot name="footer"></slot>
     </div>
 </template>
@@ -87,7 +94,7 @@
                 type : String,
                 default : 'AND'
             },
-            
+
             type : {
                 type : String,
                 default : 'checkbox_list'
@@ -115,7 +122,7 @@
         },
 
         computed : {
-            items : function() {
+            elements : function() {
                 if(this.test_ !== null && this.test_.length !== 0){
                     let aggs = this.aggregations[this.field];
                     return aggs.filter(e => (e.key.toString().startsWith(this.test_)));
@@ -133,7 +140,7 @@
                 });
             },
             uncheckAll : function () {
-                
+
                 Array.from( document.querySelectorAll('input[name="'+ this.field +'"]:checked'), input => input.checked = false );
 
                 this.removeInstructions();
@@ -230,13 +237,13 @@
 
                                 this.localInstructions.push(_instruction);
                                 this.addInstruction(_instruction);
-                                
+
                             });
                         }
                     }
                 }
 
-                
+
 
                 // Send the value to TagFilter component(s)
                 this.sendTagFilterValues();
@@ -309,7 +316,7 @@
             });
 
             this.bus.$on('updateAggs', e => {
-                
+
                 let isMe = (e.base !== undefined) ? this.CID !== e.base : true;
                 if(this.operator.toLowerCase() !== 'or' || isMe) {
                     let aggs = e.aggs;

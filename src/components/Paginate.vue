@@ -91,7 +91,7 @@
 		computed : {
 			hits : function() {
 				return {
-					items : this.items,
+					elements : this.elements,
 					score : this.score
 				};
 			},

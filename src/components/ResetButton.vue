@@ -1,6 +1,6 @@
 <template>
     <div class='is-component is-reset-button'>
-        <input class='is-button is-reset-button' type='button' :value='this.text' v-on:click='clickOn()' />
+        <v-btn depressed :color='this.color' v-on:click='clickOn()'>{{this.text}}</v-btn>
     </div>
 </template>
 
@@ -18,7 +18,11 @@
                 type : String,
                 default : 'Reset'
             },
-
+            // color : set the color ["success","error","warning","info"] into the v-btn
+            "color":{
+              type: String,
+              default: "info"
+            },
             // empty : clean all hit component displays
             'emptyHits' : {
                 type : Boolean,

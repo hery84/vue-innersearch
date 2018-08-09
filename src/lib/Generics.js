@@ -47,7 +47,7 @@ export default {
 		},
 
 		// Output items
-		items : () => {
+		elements : () => {
 			return Store.getters["Hits/getItems"];
 		},
 
@@ -130,7 +130,7 @@ export default {
 				_name = type + '_' + _CID;
 
 			Store.commit('Elasticsearch/addComponent', { type, self });
-			
+
 			return _name;
 		},
 
@@ -142,7 +142,7 @@ export default {
 			let _components = this.components;
 			if (_components[type] !== undefined)
 				return _components[type];
-			
+
 			return [];
 		},
 

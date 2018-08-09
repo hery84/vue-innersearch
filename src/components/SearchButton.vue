@@ -1,6 +1,7 @@
 <template>
     <div class="is-component is-search-button">
-        <input class="is-button is-search-button" type="button" :value='this.text' v-on:click='this.clickOn' />
+      <v-btn depressed :color='this.color' v-on:click='this.clickOn'>{{this.text}}</v-btn>
+        <!--input class="is-button is-search-button" type="button" :value='this.text' v-on:click='this.clickOn' /-->
     </div>
 </template>
 
@@ -17,6 +18,11 @@
             "text" : {
                 type : String,
                 default : "Search"
+            },
+            // color : set the color ["success","error","warning","info"] into the v-btn 
+            "color":{
+              type: String,
+              default: "success"
             }
         },
 
